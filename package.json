@@ -1,6 +1,7 @@
 {
   "name": "webtech-1105-project7-conference_organizer",
   "version": "1.0.0",
+  "type" : "module",
   "description": "WebTech Project 2024 (Conference Organizer)",
   "main": "index.js",
   "scripts": {
@@ -19,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/kaserolly/WebTech-1105-Project7-Conference_organizer/issues"
   },
-  "homepage": "https://github.com/kaserolly/WebTech-1105-Project7-Conference_organizer#readme"
+  "homepage": "https://github.com/kaserolly/WebTech-1105-Project7-Conference_organizer#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
+  }
 }
