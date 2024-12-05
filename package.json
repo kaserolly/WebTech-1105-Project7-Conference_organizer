@@ -1,0 +1,23 @@
+{
+  "name": "webtech-1105-project7-conference_organizer",
+  "version": "1.0.0",
+  "description": "WebTech Project 2024 (Conference Organizer)",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaserolly/WebTech-1105-Project7-Conference_organizer.git"
+  },
+  "keywords": [
+    "webtech",
+    "api"
+  ],
+  "author": "Rares Vlad & Daria Bogdaneanu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaserolly/WebTech-1105-Project7-Conference_organizer/issues"
+  },
+  "homepage": "https://github.com/kaserolly/WebTech-1105-Project7-Conference_organizer#readme"
+}
