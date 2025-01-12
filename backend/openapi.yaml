@@ -1,0 +1,261 @@
+openapi: 3.0.0
+info:
+  title: Conference Organizer API
+  description: API for managing conferences, articles, and users.
+  version: 1.0.0
+  contact:
+    email: bogdaneanudaria22@stud.ase.ro
+
+servers:
+  - url: http://localhost:3001
+    description: Local development server
+
+paths:
+  /users:
+    get:
+      summary: Retrieve all users
+      description: Returns a list of all users in the system.
+      responses:
+        '200':
+          description: Successfully retrieved list of users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    ID:
+                      type: string
+                    role:
+                      type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /{username}/users:
+    get:
+      summary: Get user by username
+      description: Returns user details (ID and role) for a given username.
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: The username of the user to retrieve.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved user details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      ID:
+                        type: string
+                      role:
+                        type: string
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /conferences:
+    post:
+      summary: Create a new conference
+      description: Organizer creates a new conference with details.
+      requestBody:
+        description: Details of the new conference.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                date:
+                  type: string
+                  format: date
+                location:
+                  type: string
+                organizerID:
+                  type: string
+      responses:
+        '201':
+          description: Conference created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  conferenceID:
+                    type: string
+        '400':
+          description: Bad request (e.g., missing fields).
+        '500':
+          description: Internal server error.
+
+  /conferences/{conferenceID}/articles:
+    post:
+      summary: Submit an article
+      description: Authors submit an article to a specific conference.
+      parameters:
+        - name: conferenceID
+          in: path
+          required: true
+          description: ID of the conference.
+          schema:
+            type: string
+      requestBody:
+        description: Details of the article being submitted.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                abstract:
+                  type: string
+                fileURL:
+                  type: string
+                authorID:
+                  type: string
+      responses:
+        '201':
+          description: Article submitted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  articleID:
+                    type: string
+        '400':
+          description: Bad request (e.g., missing fields or invalid input).
+        '500':
+          description: Internal server error.
+
+  /articles/{articleID}/review:
+    post:
+      summary: Submit a review for an article
+      description: Reviewers submit feedback or approval for an article.
+      parameters:
+        - name: articleID
+          in: path
+          required: true
+          description: ID of the article.
+          schema:
+            type: string
+      requestBody:
+        description: Review details.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reviewerID:
+                  type: string
+                status:
+                  type: string
+                  enum:
+                    - approved
+                    - revisions_required
+                comments:
+                  type: string
+      responses:
+        '201':
+          description: Review submitted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad request (e.g., missing fields or invalid input).
+        '500':
+          description: Internal server error.
+
+  /articles/{articleID}/status:
+    get:
+      summary: Get article status
+      description: Organizer checks the status of a submitted article.
+      parameters:
+        - name: articleID
+          in: path
+          required: true
+          description: ID of the article.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved article status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articleID:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - submitted
+                      - under_review
+                      - approved
+                      - revisions_required
+                  reviewerComments:
+                    type: array
+                    items:
+                      type: string
+        '404':
+          description: Article not found.
+        '500':
+          description: Internal server error.
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
