@@ -1,56 +1,148 @@
-import { Users } from './users.model.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-export async function initialize() {
-    await Users.sync();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-    const users = [
-        { username: 'RaresVlad', ID: '005aadd6-6190-4fbf-ae85-5cd18d37d8c2', role: 'Admin' },
-        { username: 'DariaBogdaneanu', ID: '386119c2-ebca-4b2c-a084-7a1b2d76d0b4', role: 'Admin' }
-    ];
+const dataFilePath = path.join(__dirname, 'data.json');
 
-    for (const user of users) {
-        const existingUser = await Users.findOne({ where: { username: user.username } });
-        if (!existingUser) {
-            await Users.create(user);
-        }
+const initializeDataFile = () => {
+    if (!fs.existsSync(dataFilePath)) {
+        const defaultData = { users: [], conferences: [], articles: [] };
+        fs.writeFileSync(dataFilePath, JSON.stringify(defaultData, null, 2));
     }
-}
+};
 
-export async function getAllUsers() {
-    const result = await Users.findAll();
-    const users = result.map((item) => item.dataValues);
-    return users;
-}
+const readData = () => {
+    try {
+        initializeDataFile();
+        const data = fs.readFileSync(dataFilePath, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error(`Error reading data file: ${error.message}`);
+        return { users: [], conferences: [], articles: [] }; // Fallback to default structure
+    }
+};
 
-export async function getUserByUsername(username) {
-    const result = await Users.findOne({
-        where: {
-            username: username
-        }
-    });
-    return result ? result.dataValues : null;
-}
+const writeData = (data) => {
+    try {
+        fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+    } catch (error) {
+        console.error(`Error writing to data file: ${error.message}`);
+    }
+};
 
-export async function createUser(newUser) {
-    const result = await Users.create(newUser);
-    return result.dataValues;
-}
+const findById = (array, id) => array.find(item => item.id === id);
 
-export async function updateUser(username, updatedUser) {
-    const result = await Users.update(updatedUser, {
-        where: {
-            username: username
-        }
-    });
-    if (result[0] === 0) return null;
-    return await getUserByUsername(username);
-}
+const findIndexById = (array, id) => array.findIndex(item => item.id === id);
 
-export async function deleteUser(username) {
-    const result = await Users.destroy({
-        where: {
-            username: username
-        }
-    });
-    return result ? true : false;
-}
+export const getAllUsers = async () => {
+    const data = readData();
+    return data.users;
+};
+
+export const getUserByUsername = async (username) => {
+    const data = readData();
+    return data.users.find(user => user.username === username);
+};
+
+export const createUser = async (userData) => {
+    const data = readData();
+    const newUser = { id: data.users.length + 1, ...userData };
+    data.users.push(newUser);
+    writeData(data);
+    return newUser;
+};
+
+export const updateUser = async (id, userData) => {
+    const data = readData();
+    const index = findIndexById(data.users, Number(id));
+    if (index !== -1) {
+        data.users[index] = { ...data.users[index], ...userData };
+        writeData(data);
+        return data.users[index];
+    }
+    return null;
+};
+
+export const deleteUser = async (id) => {
+    const data = readData();
+    const index = findIndexById(data.users, Number(id));
+    if (index !== -1) {
+        const [deletedUser] = data.users.splice(index, 1);
+        writeData(data);
+        return deletedUser;
+    }
+    return null;
+};
+
+export const getAllConferences = async () => {
+    const data = readData();
+    return data.conferences;
+};
+
+export const createConference = async (conferenceData) => {
+    const data = readData();
+    const newConference = { id: data.conferences.length + 1, ...conferenceData };
+    data.conferences.push(newConference);
+    writeData(data);
+    return newConference;
+};
+
+export const updateConference = async (id, conferenceData) => {
+    const data = readData();
+    const index = findIndexById(data.conferences, Number(id));
+    if (index !== -1) {
+        data.conferences[index] = { ...data.conferences[index], ...conferenceData };
+        writeData(data);
+        return data.conferences[index];
+    }
+    return null;
+};
+
+export const deleteConference = async (id) => {
+    const data = readData();
+    const index = findIndexById(data.conferences, Number(id));
+    if (index !== -1) {
+        const [deletedConference] = data.conferences.splice(index, 1);
+        writeData(data);
+        return deletedConference;
+    }
+    return null;
+};
+
+export const getAllArticles = async () => {
+    const data = readData();
+    return data.articles;
+};
+
+export const createArticle = async (articleData) => {
+    const data = readData();
+    const newArticle = { id: data.articles.length + 1, ...articleData };
+    data.articles.push(newArticle);
+    writeData(data);
+    return newArticle;
+};
+
+export const updateArticle = async (id, articleData) => {
+    const data = readData();
+    const index = findIndexById(data.articles, Number(id));
+    if (index !== -1) {
+        data.articles[index] = { ...data.articles[index], ...articleData };
+        writeData(data);
+        return data.articles[index];
+    }
+    return null;
+};
+
+export const deleteArticle = async (id) => {
+    const data = readData();
+    const index = findIndexById(data.articles, Number(id));
+    if (index !== -1) {
+        const [deletedArticle] = data.articles.splice(index, 1);
+        writeData(data);
+        return deletedArticle;
+    }
+    return null;
+};

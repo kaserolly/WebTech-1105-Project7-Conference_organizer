@@ -1,0 +1,47 @@
+.reviewer-dashboard {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.articles-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.article-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: calc(50% - 20px);
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+.article-card h3 {
+  margin-top: 0;
+}
+
+.article-content {
+  max-height: 100px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.review-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.review-buttons button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.review-buttons button:hover {
+  background-color: #0056b3;
+}

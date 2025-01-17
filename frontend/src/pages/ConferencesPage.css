@@ -1,0 +1,57 @@
+.conference-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.conference-form {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.conference-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.conference-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: calc(50% - 20px);
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+.conference-card h3 {
+  margin-top: 0;
+}

@@ -1,0 +1,72 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "RaresVlad",
+      "role": "Admin"
+    },
+    {
+      "id": 2,
+      "username": "DariaBogdaneanu",
+      "role": "Admin"
+    },
+    {
+      "id": 3,
+      "username": "reviewer1",
+      "role": "Reviewer"
+    },
+    {
+      "id": 4,
+      "username": "author1",
+      "role": "Author"
+    },
+    {
+      "id": 5,
+      "username": "organizer1",
+      "role": "Organizer"
+    },
+    {
+      "id": 6,
+      "username": "reviewer2",
+      "role": "Reviewer"
+    }
+  ],
+  "conferences": [
+    {
+      "id": 1,
+      "name": "Conference 1",
+      "date": "2025-01-20",
+      "location": "Location 1",
+      "description": "First conference"
+    },
+    {
+      "id": 2,
+      "name": "Conference 2",
+      "date": "2025-02-01",
+      "location": "Location 2",
+      "description": "Second conference"
+    },
+    {
+      "id": 3,
+      "name": "Conference 3",
+      "date": "2025-02-09",
+      "location": "Location 3",
+      "description": "The third conference"
+    },
+    {
+      "id": 4,
+      "name": "Conference 4",
+      "date": "2025-01-21",
+      "location": "Location 1",
+      "description": "the fourth conference"
+    }
+  ],
+  "articles": [
+    {
+      "id": 1,
+      "title": "Article1",
+      "content": "Abstract",
+      "conferenceId": "1"
+    }
+  ]
+}
