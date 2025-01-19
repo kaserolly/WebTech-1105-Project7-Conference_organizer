@@ -117,6 +117,65 @@ export const getAllArticles = async () => {
     return data.articles;
 };
 
+export const submitArticle = async (conferenceId, authorId, articleData) => {
+    const data = readData();
+    const conference = findById(data.conferences, conferenceId);
+    if (!conference) throw new Error('Conference not found.');
+
+    const author = findById(data.users, authorId);
+    if (!author || author.role !== 'Author') throw new Error('Invalid author.');
+
+    const reviewers = data.users.filter(user => user.role === 'Reviewer').slice(0, 2);
+    if (reviewers.length < 2) throw new Error('Insufficient reviewers available.');
+
+    const newArticle = {
+        id: data.articles.length + 1,
+        ...articleData,
+        conferenceId,
+        authorId,
+        reviewers: reviewers.map(reviewer => reviewer.id),
+        feedback: [],
+        status: 'under_review',
+        versions: [],
+    };
+
+    data.articles.push(newArticle);
+    writeData(data);
+    return newArticle;
+};
+
+export const resubmitArticle = async (articleId, authorId, updatedContent) => {
+    const data = readData();
+    const article = findById(data.articles, articleId);
+    if (!article || article.authorId !== authorId) {
+        throw new Error('Unauthorized or article not found.');
+    }
+
+    const currentVersion = { title: article.title, abstract: article.abstract, updatedAt: new Date().toISOString() };
+    article.versions.push(currentVersion);
+
+    Object.assign(article, updatedContent);
+    article.status = 'resubmitted';
+    article.feedback = [];
+    writeData(data);
+
+    return article;
+};
+
+export const reviewArticle = async (articleId, reviewerId, feedback, isApproved) => {
+    const data = readData();
+    const article = findById(data.articles, articleId);
+    if (!article) throw new Error('Article not found.');
+
+    if (!article.reviewers.includes(reviewerId)) throw new Error('Unauthorized reviewer.');
+
+    article.feedback.push({ reviewerId, feedback, isApproved });
+    article.status = isApproved ? 'approved' : 'revisions_required';
+
+    writeData(data);
+    return article;
+};
+
 export const createArticle = async (articleData) => {
     const data = readData();
     const newArticle = { id: data.articles.length + 1, ...articleData };

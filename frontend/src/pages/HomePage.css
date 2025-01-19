@@ -1,7 +1,39 @@
 .home-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Full viewport height */
   text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.home-page .content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 40px; /* Add margin to the bottom */
+}
+
+.home-page img {
+  max-width: 600px;
+  height: auto;
+}
+
+.home-page .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.styled-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 150px; /* Adjust width as needed */
+}
+
+.styled-button:hover {
+  background-color: #0056b3;
 }

@@ -23,6 +23,12 @@ export const Articles = sequelize.define('Articles', {
     fileURL: { type: DataTypes.STRING, allowNull: false },
     authorID: { type: DataTypes.UUID, allowNull: false },
     conferenceID: { type: DataTypes.UUID, allowNull: false },
+    status: { 
+        type: DataTypes.ENUM('submitted', 'under_review', 'approved', 'revisions_required'), 
+        defaultValue: 'submitted' 
+    },
+    assignedReviewers: { type: DataTypes.ARRAY(DataTypes.UUID), allowNull: true }, // Array of reviewer IDs
+    versions: { type: DataTypes.JSON, allowNull: true }, // Array of previous versions
 });
 
 // Reviews

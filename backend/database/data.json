@@ -29,6 +29,11 @@
       "id": 6,
       "username": "reviewer2",
       "role": "Reviewer"
+    },
+    {
+      "id": 7,
+      "username": "reviewer3",
+      "role": "Reviewer"
     }
   ],
   "conferences": [
@@ -37,36 +42,44 @@
       "name": "Conference 1",
       "date": "2025-01-20",
       "location": "Location 1",
-      "description": "First conference"
+      "description": "First conference",
+      "reviewers": [
+        3,
+        6
+      ]
     },
     {
       "id": 2,
       "name": "Conference 2",
-      "date": "2025-02-01",
-      "location": "Location 2",
-      "description": "Second conference"
+      "date": "2025-01-29",
+      "location": "Location2",
+      "description": "2nd",
+      "reviewers": [
+        3,
+        6
+      ]
     },
     {
       "id": 3,
-      "name": "Conference 3",
-      "date": "2025-02-09",
+      "name": "Conference 4",
+      "date": "2025-01-23",
       "location": "Location 3",
-      "description": "The third conference"
+      "description": "3rd",
+      "reviewers": [
+        3,
+        6
+      ]
     },
     {
       "id": 4,
-      "name": "Conference 4",
-      "date": "2025-01-21",
+      "name": "Conference 3",
+      "date": "2025-02-06",
       "location": "Location 1",
-      "description": "the fourth conference"
-    }
-  ],
-  "articles": [
-    {
-      "id": 1,
-      "title": "Article1",
-      "content": "Abstract",
-      "conferenceId": "1"
+      "description": "3rd conference",
+      "reviewers": [
+        3,
+        6
+      ]
     }
   ]
 }

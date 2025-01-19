@@ -24,3 +24,8 @@
 .navbar li a:hover {
   background-color: #111;
 }
+
+.disabled-link {
+  pointer-events: none;
+  color: gray;
+}

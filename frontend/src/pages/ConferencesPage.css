@@ -1,40 +1,45 @@
-.conference-page {
-  max-width: 800px;
-  margin: 0 auto;
+.conferences-page {
   padding: 20px;
-  font-family: Arial, sans-serif;
 }
 
 .conference-form {
   margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
 
 .form-group {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .form-group input,
-.form-group select,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
+  display: block;
   width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.submit-button {
-  padding: 10px 15px;
+.conference-form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
   background-color: #007bff;
   color: white;
-  border: none;
   cursor: pointer;
 }
 
-.submit-button:hover {
+.conference-form button:hover {
   background-color: #0056b3;
 }
 
@@ -45,13 +50,31 @@
 }
 
 .conference-card {
+  flex: 1 1 calc(33.333% - 20px);
+  padding: 20px;
   border: 1px solid #ccc;
-  padding: 15px;
-  width: calc(50% - 20px);
-  box-sizing: border-box;
-  background-color: #f9f9f9;
+  border-radius: 8px;
+  background-color: #fff;
 }
 
-.conference-card h3 {
+.conference-card h2 {
   margin-top: 0;
+}
+
+.conference-card ul {
+  padding-left: 20px;
+}
+
+.conference-card button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.conference-card button:hover {
+  background-color: #0056b3;
 }

@@ -1,8 +1,18 @@
 import { API_BASE_URL } from './api';
 
 export const fetchArticles = async () => {
-  const response = await fetch(`${API_BASE_URL}/articles`);
-  return response.json();
+  try {
+    const response = await fetch(`${API_BASE_URL}/articles`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const text = await response.text();
+    const data = text ? JSON.parse(text) : [];
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch articles:', error);
+    throw error;
+  }
 };
 
 export const createArticle = async (articleData) => {
